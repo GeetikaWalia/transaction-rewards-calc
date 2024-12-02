@@ -1,0 +1,252 @@
+[
+  {
+    "customerId": 1,
+    "name": "Alice Johnson",
+    "email": "alice.johnson@example.com"
+  },
+  {
+    "customerId": 2,
+    "name": "Bob Smith",
+    "email": "bob.smith@example.com"
+  },
+  {
+    "customerId": 3,
+    "name": "Charlie Brown",
+    "email": "charlie.brown@example.com"
+  },
+  {
+    "customerId": 4,
+    "name": "David Williams",
+    "email": "david.williams@example.com"
+  },
+  {
+    "customerId": 5,
+    "name": "Eva Green",
+    "email": "eva.green@example.com"
+  },
+  {
+    "customerId": 6,
+    "name": "Frank Taylor",
+    "email": "frank.taylor@example.com"
+  },
+  {
+    "customerId": 7,
+    "name": "Grace Harris",
+    "email": "grace.harris@example.com"
+  },
+  {
+    "customerId": 8,
+    "name": "Helen Clark",
+    "email": "helen.clark@example.com"
+  },
+  {
+    "customerId": 9,
+    "name": "Ian Lewis",
+    "email": "ian.lewis@example.com"
+  },
+  {
+    "customerId": 10,
+    "name": "Jackie Walker",
+    "email": "jackie.walker@example.com"
+  },
+  {
+    "customerId": 11,
+    "name": "Kenny Young",
+    "email": "kenny.young@example.com"
+  },
+  {
+    "customerId": 12,
+    "name": "Laura King",
+    "email": "laura.king@example.com"
+  },
+  {
+    "customerId": 13,
+    "name": "Mike Scott",
+    "email": "mike.scott@example.com"
+  },
+  {
+    "customerId": 14,
+    "name": "Nancy Evans",
+    "email": "nancy.evans@example.com"
+  },
+  {
+    "customerId": 15,
+    "name": "Oscar Moore",
+    "email": "oscar.moore@example.com"
+  },
+  {
+    "customerId": 16,
+    "name": "Paul Adams",
+    "email": "paul.adams@example.com"
+  },
+  {
+    "customerId": 17,
+    "name": "Quincy Bell",
+    "email": "quincy.bell@example.com"
+  },
+  {
+    "customerId": 18,
+    "name": "Rachel Carter",
+    "email": "rachel.carter@example.com"
+  },
+  {
+    "customerId": 19,
+    "name": "Sam Brown",
+    "email": "sam.brown@example.com"
+  },
+  {
+    "customerId": 20,
+    "name": "Tina Garcia",
+    "email": "tina.garcia@example.com"
+  },
+  {
+    "customerId": 21,
+    "name": "Ursula Martinez",
+    "email": "ursula.martinez@example.com"
+  },
+  {
+    "customerId": 22,
+    "name": "Victor Rodriguez",
+    "email": "victor.rodriguez@example.com"
+  },
+  {
+    "customerId": 23,
+    "name": "Wendy Lopez",
+    "email": "wendy.lopez@example.com"
+  },
+  {
+    "customerId": 24,
+    "name": "Xander Perez",
+    "email": "xander.perez@example.com"
+  },
+  {
+    "customerId": 25,
+    "name": "Yara Sanchez",
+    "email": "yara.sanchez@example.com"
+  },
+  {
+    "customerId": 26,
+    "name": "Zane Taylor",
+    "email": "zane.taylor@example.com"
+  },
+  {
+    "customerId": 27,
+    "name": "Alan Wilson",
+    "email": "alan.wilson@example.com"
+  },
+  {
+    "customerId": 28,
+    "name": "Bella Johnson",
+    "email": "bella.johnson@example.com"
+  },
+  {
+    "customerId": 29,
+    "name": "Clara Davis",
+    "email": "clara.davis@example.com"
+  },
+  {
+    "customerId": 30,
+    "name": "Daniel Harris",
+    "email": "daniel.harris@example.com"
+  },
+  {
+    "customerId": 31,
+    "name": "Eva Jackson",
+    "email": "eva.jackson@example.com"
+  },
+  {
+    "customerId": 32,
+    "name": "Finn Walker",
+    "email": "finn.walker@example.com"
+  },
+  {
+    "customerId": 33,
+    "name": "Gina White",
+    "email": "gina.white@example.com"
+  },
+  {
+    "customerId": 34,
+    "name": "Holly Lee",
+    "email": "holly.lee@example.com"
+  },
+  {
+    "customerId": 35,
+    "name": "Isaac Moore",
+    "email": "isaac.moore@example.com"
+  },
+  {
+    "customerId": 36,
+    "name": "Jack Martin",
+    "email": "jack.martin@example.com"
+  },
+  {
+    "customerId": 37,
+    "name": "Kylie Carter",
+    "email": "kylie.carter@example.com"
+  },
+  {
+    "customerId": 38,
+    "name": "Leo Thomas",
+    "email": "leo.thomas@example.com"
+  },
+  {
+    "customerId": 39,
+    "name": "Maya Lee",
+    "email": "maya.lee@example.com"
+  },
+  {
+    "customerId": 40,
+    "name": "Nina Hernandez",
+    "email": "nina.hernandez@example.com"
+  },
+  {
+    "customerId": 41,
+    "name": "Omar Wright",
+    "email": "omar.wright@example.com"
+  },
+  {
+    "customerId": 42,
+    "name": "Penny White",
+    "email": "penny.white@example.com"
+  },
+  {
+    "customerId": 43,
+    "name": "Quinn Fisher",
+    "email": "quinn.fisher@example.com"
+  },
+  {
+    "customerId": 44,
+    "name": "Riley Evans",
+    "email": "riley.evans@example.com"
+  },
+  {
+    "customerId": 45,
+    "name": "Sophia Nelson",
+    "email": "sophia.nelson@example.com"
+  },
+  {
+    "customerId": 46,
+    "name": "Tommy Parker",
+    "email": "tommy.parker@example.com"
+  },
+  {
+    "customerId": 47,
+    "name": "Ursula Scott",
+    "email": "ursula.scott@example.com"
+  },
+  {
+    "customerId": 48,
+    "name": "Vera Davis",
+    "email": "vera.davis@example.com"
+  },
+  {
+    "customerId": 49,
+    "name": "Will Foster",
+    "email": "will.foster@example.com"
+  },
+  {
+    "customerId": 50,
+    "name": "Xena Hall",
+    "email": "xena.hall@example.com"
+  }
+]

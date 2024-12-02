@@ -1,0 +1,33 @@
+version: "3.3"
+services:
+  # MongoDB Service
+  mongodb-service:
+    container_name: mongodb
+    image: mongo:latest # MongoDB official image
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    ports:
+      - "29019:27017"
+    expose:
+      - "27017"
+    restart: always
+    volumes:
+      - mongodb_data:/data/db # Persistent storage for MongoDB
+
+  # Spring Boot Application
+  rewards-app:
+    container_name: rewards-app
+    build:
+      context: . # Dockerfile is in the root directory
+    ports:
+      - "9897:9897"
+    depends_on:
+      - mongodb-service
+    restart: always
+    environment:
+      SPRING_DATA_MONGODB_URI: mongodb://root:root@mongodb:27017/rewardsdb?authSource=admin
+      SPRING_PROFILES_ACTIVE: dev
+
+volumes:
+  mongodb_data:
