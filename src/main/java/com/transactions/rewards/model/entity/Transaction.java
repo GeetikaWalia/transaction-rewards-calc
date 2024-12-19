@@ -20,7 +20,7 @@ public class Transaction {
 
     @Id
     private ObjectId id;
-    @DBRef
+    @DBRef(lazy = true)
     private Customer customer;
     private LocalDate date;
     private double amount;
