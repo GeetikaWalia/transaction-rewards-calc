@@ -1,5 +1,7 @@
 package com.transactions.rewards.services;
 
+import com.transactions.rewards.exceptions.ErrorCodes;
+import com.transactions.rewards.exceptions.RewardsException;
 import com.transactions.rewards.model.entity.Transaction;
 import com.transactions.rewards.model.response.TransactionRewardResponse;
 import com.transactions.rewards.utils.RewardUtils;
@@ -9,7 +11,12 @@ import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -36,12 +43,13 @@ public class RewardService {
                     .merge(month, RewardUtils.calculateRewardPoints(transaction.getAmount()), Integer::sum);
         });
 
-        var customerMap = customerService.findAllByCustomerId(rewardsByCustomer.keySet());
+        var customerMap = Optional.ofNullable(customerService.findAllByCustomerId(rewardsByCustomer.keySet()))
+                .orElse(new HashMap<>());
 
         return rewardsByCustomer.entrySet().stream().map(entry -> {
             var customer = customerMap.get(entry.getKey());
             if (customer == null) {
-                return null;
+                throw new RewardsException(ErrorCodes.CUSTOMER_NOT_FOUND, entry.getKey());
             }
             var monthly = entry.getValue();
             var total = monthly.values().stream().mapToInt(Integer::intValue).sum();

@@ -17,10 +17,13 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -69,8 +72,8 @@ class RewardControllerTest {
     @DisplayName("getRewards should return reward details from database")
     void getRewardsShouldReturnRewardDetailsFromDatabase() {
         var expectedResponse = List.of(
-                TransactionRewardResponse.builder().totalRewards(150).monthlyRewards(Map.of("JANUARY", 90, "MARCH", 25, "FEBRUARY", 35)).name("Customer One").build(),
-                TransactionRewardResponse.builder().totalRewards(295).monthlyRewards(Map.of("JANUARY", 45, "MARCH", 250)).name("Customer Two").build());
+                TransactionRewardResponse.builder().totalRewards(295).monthlyRewards(Map.of("JANUARY", 45, "MARCH", 250)).name("Customer Two").build(),
+                TransactionRewardResponse.builder().totalRewards(150).monthlyRewards(Map.of("JANUARY", 90, "MARCH", 25, "FEBRUARY", 35)).name("Customer One").build());
 
         String contentAsString = mockMvc.perform(get("/api/rewards")
                         .contentType(MediaType.APPLICATION_JSON))
@@ -80,6 +83,14 @@ class RewardControllerTest {
 
         var actualResponse = objectMapper.readValue(contentAsString, TransactionRewardResponse[].class);
 
-        assertEquals(actualResponse.length, 2);
+        assertEquals(2, actualResponse.length);
+        for (TransactionRewardResponse rewardResponse : expectedResponse) {
+            TransactionRewardResponse response = Arrays.stream(actualResponse).
+                    filter(transactionRewardResponse -> transactionRewardResponse.getName().equals(rewardResponse.getName())).findFirst().orElse(null);
+            assertNotNull(response);
+            assertThat(response)
+                    .usingRecursiveComparison().ignoringFields("customerId")
+                    .isEqualTo(rewardResponse);
+        }
     }
 }
