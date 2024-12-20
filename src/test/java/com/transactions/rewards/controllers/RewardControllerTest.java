@@ -6,6 +6,7 @@ import com.transactions.rewards.model.entity.Transaction;
 import com.transactions.rewards.model.response.TransactionRewardResponse;
 import com.transactions.rewards.repository.CustomerRepository;
 import com.transactions.rewards.repository.TransactionRepository;
+import com.transactions.rewards.utils.TestData;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -19,8 +20,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
+import static com.transactions.rewards.utils.TestData.customer;
+import static com.transactions.rewards.utils.TestData.rewardsResponse;
+import static com.transactions.rewards.utils.TestData.transaction;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -54,26 +57,23 @@ class RewardControllerTest {
     }
 
     private void setUpData() {
-        Customer customerOne = customerRepository.save(new Customer(null, "Customer One", "customerone@test.com"));
-        Customer customerTwo = customerRepository.save(new Customer(null, "Customer Two", "customertwo@test.com"));
-
-        transactionRepository.saveAll(List.of(
-                new Transaction(customerOne, LocalDate.of(2024, 1, 15), 120),
-                new Transaction(customerOne, LocalDate.of(2024, 2, 10), 85),
-                new Transaction(customerOne, LocalDate.of(2024, 3, 5), 75),
-                new Transaction(customerTwo, LocalDate.of(2024, 1, 18), 95),
-                new Transaction(customerTwo, LocalDate.of(2024, 3, 25), 200)
-        ));
-
+        Customer customerOne = customerRepository.save(customer("Customer One", "customerone@test.com"));
+        Customer customerTwo = customerRepository.save(customer("Customer Two", "customertwo@test.com"));
+        List<Transaction> transactions = List.of(
+                transaction(customerOne, LocalDate.of(2024, 1, 15), 120),
+                transaction(customerOne, LocalDate.of(2024, 2, 10), 85),
+                transaction(customerOne, LocalDate.of(2024, 3, 5), 75),
+                transaction(customerTwo, LocalDate.of(2024, 1, 18), 95),
+                transaction(customerTwo, LocalDate.of(2024, 3, 25), 200)
+        );
+        transactionRepository.saveAll(transactions);
     }
 
     @Test
     @SneakyThrows
     @DisplayName("getRewards should return reward details from database")
     void getRewardsShouldReturnRewardDetailsFromDatabase() {
-        var expectedResponse = List.of(
-                TransactionRewardResponse.builder().totalRewards(295).monthlyRewards(Map.of("JANUARY", 45, "MARCH", 250)).name("Customer Two").build(),
-                TransactionRewardResponse.builder().totalRewards(150).monthlyRewards(Map.of("JANUARY", 90, "MARCH", 25, "FEBRUARY", 35)).name("Customer One").build());
+        var expectedResponse = rewardsResponse();
 
         String contentAsString = mockMvc.perform(get("/api/rewards")
                         .contentType(MediaType.APPLICATION_JSON))

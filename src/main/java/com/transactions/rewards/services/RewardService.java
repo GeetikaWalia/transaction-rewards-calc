@@ -11,7 +11,9 @@ import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.time.Month;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,10 +53,15 @@ public class RewardService {
             if (customer == null) {
                 throw new RewardsException(ErrorCodes.CUSTOMER_NOT_FOUND, entry.getKey());
             }
-            var monthly = entry.getValue();
-            var total = monthly.values().stream().mapToInt(Integer::intValue).sum();
+            var monthlyRewards = entry.getValue().entrySet().stream().map(stringIntegerEntry ->
+                    TransactionRewardResponse.MonthlyRewardResponse.builder()
+                            .reward(stringIntegerEntry.getValue())
+                            .month(Month.valueOf(stringIntegerEntry.getKey())).build()).sorted(Comparator
+                    .comparing(TransactionRewardResponse.MonthlyRewardResponse::getMonth)).toList();
+
+            var total = entry.getValue().values().stream().mapToInt(Integer::intValue).sum();
             return TransactionRewardResponse.builder()
-                    .monthlyRewards(monthly)
+                    .monthlyRewards(monthlyRewards)
                     .totalRewards(total)
                     .name(customer.getName())
                     .customerId(customer.getId().toString()).build();

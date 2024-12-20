@@ -1,0 +1,36 @@
+[
+  {
+    "customerId": "67652cf6a0dcce471fdc7688",
+    "name": "Customer Two",
+    "totalRewards": 295,
+    "monthlyRewards": [
+      {
+        "month": "JANUARY",
+        "reward": 45
+      },
+      {
+        "month": "MARCH",
+        "reward": 250
+      }
+    ]
+  },
+  {
+    "customerId": "67652cf6a0dcce471fdc7687",
+    "name": "Customer One",
+    "totalRewards": 150,
+    "monthlyRewards": [
+      {
+        "month": "JANUARY",
+        "reward": 90
+      },
+      {
+        "month": "FEBRUARY",
+        "reward": 35
+      },
+      {
+        "month": "MARCH",
+        "reward": 25
+      }
+    ]
+  }
+]

@@ -5,7 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Map;
+import java.time.Month;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -15,5 +16,14 @@ public class TransactionRewardResponse {
     private String customerId;
     private String name;
     private Integer totalRewards;
-    private Map<String, Integer> monthlyRewards;
+    private List<MonthlyRewardResponse> monthlyRewards;
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
+    public static class MonthlyRewardResponse {
+        private Month month;
+        private Integer reward;
+    }
 }

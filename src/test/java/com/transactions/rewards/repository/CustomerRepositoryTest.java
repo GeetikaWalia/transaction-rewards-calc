@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Optional;
 
+import static com.transactions.rewards.utils.TestData.customer;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -22,7 +23,7 @@ class CustomerRepositoryTest {
     @Test
     @DisplayName("findById should work fine")
     void findByIdShouldWorkFine() {
-        Customer customerOne = new Customer(new ObjectId(), "Customer One", "customerone@test.com");
+        Customer customerOne = customer("Customer One", "customerone@test.com");
 
         customerRepository.save(customerOne);
 
@@ -35,7 +36,7 @@ class CustomerRepositoryTest {
     @Test
     @DisplayName("deleteById should work fine")
     void deleteByIdShouldWorkFine() {
-        Customer customerOne = new Customer(new ObjectId(), "Customer One", "customerone@test.com");
+        Customer customerOne = customer("Customer One", "customerone@test.com");
         customerRepository.save(customerOne);
 
         customerRepository.deleteById(customerOne.getId());

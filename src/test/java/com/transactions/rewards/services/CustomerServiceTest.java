@@ -1,6 +1,4 @@
 package com.transactions.rewards.services;
-import static org.mockito.Mockito.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 import com.transactions.rewards.model.entity.Customer;
 import com.transactions.rewards.repository.CustomerRepository;
@@ -11,7 +9,19 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import java.util.*;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import static com.transactions.rewards.utils.TestData.customer;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 class CustomerServiceTest {
 
@@ -29,8 +39,8 @@ class CustomerServiceTest {
     @Test
     @DisplayName("findAllByCustomerId should return customerMap")
     void findAllByCustomerIdShouldReturnCustomerMap() {
-        Customer customerOne = new Customer(new ObjectId(), "Customer One", "customerone@test.com");
-        Customer customerTwo = new Customer(new ObjectId(), "Customer Two", "customertwo@test.com");
+        Customer customerOne = customer("Customer One", "customerone@test.com");
+        Customer customerTwo = customer("Customer Two", "customertwo@test.com");
 
         Set<ObjectId> customerIds = Set.of(customerOne.getId(), customerTwo.getId());
         when(customerRepository.findAllById(customerIds)).thenReturn(Arrays.asList(customerOne, customerTwo));
@@ -47,8 +57,8 @@ class CustomerServiceTest {
     @Test
     @DisplayName("findAllByCustomerId should return emptyMap")
     void findAllByCustomerIdShouldReturnEmptyMap() {
-        Customer customerOne = new Customer(new ObjectId(), "Customer One", "customerone@test.com");
-        Customer customerTwo = new Customer(new ObjectId(), "Customer Two", "customertwo@test.com");
+        Customer customerOne = customer("Customer One", "customerone@test.com");
+        Customer customerTwo = customer("Customer Two", "customertwo@test.com");
 
         Set<ObjectId> customerIds = Set.of(customerOne.getId(), customerTwo.getId());
         when(customerRepository.findAllById(customerIds)).thenReturn(List.of());
