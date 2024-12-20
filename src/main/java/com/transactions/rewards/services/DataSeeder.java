@@ -34,6 +34,8 @@ public class DataSeeder implements CommandLineRunner {
     @SneakyThrows
     @Override
     public void run(String... args) {
+        transactionRepository.deleteAll();
+        customerRepository.deleteAll();
         try (InputStream customerStream = this.getClass().getClassLoader().getResourceAsStream("data/customers.json");
              InputStream transactionStream = this.getClass().getClassLoader().getResourceAsStream("data/transactions.json")) {
             var customerDtos = objectMapper.readValue(customerStream, CustomerDto[].class);
