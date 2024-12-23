@@ -1,7 +1,6 @@
 package com.transactions.rewards.repository;
 
 import com.transactions.rewards.model.entity.Customer;
-import org.bson.types.ObjectId;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

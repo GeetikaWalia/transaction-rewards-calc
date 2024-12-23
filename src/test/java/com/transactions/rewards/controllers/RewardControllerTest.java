@@ -6,7 +6,6 @@ import com.transactions.rewards.model.entity.Transaction;
 import com.transactions.rewards.model.response.TransactionRewardResponse;
 import com.transactions.rewards.repository.CustomerRepository;
 import com.transactions.rewards.repository.TransactionRepository;
-import com.transactions.rewards.utils.TestData;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

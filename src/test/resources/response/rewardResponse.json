@@ -3,14 +3,17 @@
     "customerId": "67652cf6a0dcce471fdc7688",
     "name": "Customer Two",
     "totalRewards": 295,
+    "totalAmount": 295.0,
     "monthlyRewards": [
       {
         "month": "JANUARY",
-        "reward": 45
+        "reward": 45,
+        "amount": 95.0
       },
       {
         "month": "MARCH",
-        "reward": 250
+        "reward": 250,
+        "amount": 200.0
       }
     ]
   },
@@ -18,18 +21,22 @@
     "customerId": "67652cf6a0dcce471fdc7687",
     "name": "Customer One",
     "totalRewards": 150,
+    "totalAmount": 280.0,
     "monthlyRewards": [
       {
         "month": "JANUARY",
-        "reward": 90
+        "reward": 90,
+        "amount": 120.0
       },
       {
         "month": "FEBRUARY",
-        "reward": 35
+        "reward": 35,
+        "amount": 85.0
       },
       {
         "month": "MARCH",
-        "reward": 25
+        "reward": 25,
+        "amount": 75.0
       }
     ]
   }

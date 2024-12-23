@@ -3,7 +3,6 @@ package com.transactions.rewards.services;
 import com.transactions.rewards.model.entity.Customer;
 import com.transactions.rewards.model.entity.Transaction;
 import com.transactions.rewards.repository.TransactionRepository;
-import org.bson.types.ObjectId;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

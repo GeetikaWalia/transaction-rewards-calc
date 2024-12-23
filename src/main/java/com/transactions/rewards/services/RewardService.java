@@ -36,33 +36,40 @@ public class RewardService {
             return new ArrayList<>();
         }
 
-        Map<ObjectId, Map<String, Integer>> rewardsByCustomer = new HashMap<>();
+        Map<ObjectId, Map<Month, TransactionRewardResponse.MonthlyRewardResponse>> rewardsByCustomer = new HashMap<>();
 
         transactions.forEach(transaction -> {
-            String month = transaction.getDate().getMonth().toString();
+            Month month = Month.valueOf(transaction.getDate().getMonth().toString());
             rewardsByCustomer
                     .computeIfAbsent(transaction.getCustomer().getId(), k -> new HashMap<>())
-                    .merge(month, RewardUtils.calculateRewardPoints(transaction.getAmount()), Integer::sum);
+                    .compute(month, (m, monthlyResponse) -> {
+                        if (monthlyResponse == null) {
+                            monthlyResponse = new TransactionRewardResponse.MonthlyRewardResponse();
+                        }
+                        monthlyResponse.addRewardPoints(RewardUtils.calculateRewardPoints(transaction.getAmount()));
+                        monthlyResponse.addAmount(transaction.getAmount());
+                        monthlyResponse.setMonth(month);
+                        return monthlyResponse;
+                    });
         });
 
         var customerMap = Optional.ofNullable(customerService.findAllByCustomerId(rewardsByCustomer.keySet()))
                 .orElse(new HashMap<>());
 
-        return rewardsByCustomer.entrySet().stream().map(entry -> {
-            var customer = customerMap.get(entry.getKey());
+        return rewardsByCustomer.entrySet().stream().map(rewardsEntry -> {
+            var customer = customerMap.get(rewardsEntry.getKey());
             if (customer == null) {
-                throw new RewardsException(ErrorCodes.CUSTOMER_NOT_FOUND, entry.getKey());
+                throw new RewardsException(ErrorCodes.CUSTOMER_NOT_FOUND, rewardsEntry.getKey());
             }
-            var monthlyRewards = entry.getValue().entrySet().stream().map(stringIntegerEntry ->
-                    TransactionRewardResponse.MonthlyRewardResponse.builder()
-                            .reward(stringIntegerEntry.getValue())
-                            .month(Month.valueOf(stringIntegerEntry.getKey())).build()).sorted(Comparator
+            var monthlyRewards = rewardsEntry.getValue().values().stream().sorted(Comparator
                     .comparing(TransactionRewardResponse.MonthlyRewardResponse::getMonth)).toList();
 
-            var total = entry.getValue().values().stream().mapToInt(Integer::intValue).sum();
+            var totalRewards = rewardsEntry.getValue().values().stream().mapToInt(TransactionRewardResponse.MonthlyRewardResponse::getReward).sum();
+            var totalAmount = rewardsEntry.getValue().values().stream().mapToDouble(TransactionRewardResponse.MonthlyRewardResponse::getAmount).sum();
             return TransactionRewardResponse.builder()
                     .monthlyRewards(monthlyRewards)
-                    .totalRewards(total)
+                    .totalRewards(totalRewards)
+                    .totalAmount(totalAmount)
                     .name(customer.getName())
                     .customerId(customer.getId().toString()).build();
         }).filter(Objects::nonNull).toList();
