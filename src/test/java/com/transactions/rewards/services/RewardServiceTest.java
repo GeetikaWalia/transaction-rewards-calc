@@ -50,7 +50,7 @@ class RewardServiceTest {
                 transaction(customerTwo, LocalDate.of(2024, 3, 25), 200)
         );
 
-        when(transactionService.findAllTransactions()).thenReturn(transactions);
+        when(transactionService.findAllTransactionsForLast3Months()).thenReturn(transactions);
 
         Map<ObjectId, Customer> customerMap = Map.of(
                 customerOne.getId(), customerOne,
@@ -66,7 +66,7 @@ class RewardServiceTest {
     @Test
     @DisplayName("calculateRewards should return empty")
     void calculateRewardsShouldReturnEmpty() {
-        when(transactionService.findAllTransactions()).thenReturn(List.of());
+        when(transactionService.findAllTransactionsForLast3Months()).thenReturn(List.of());
 
         List<TransactionRewardResponse> rewards = rewardService.calculateRewards();
 

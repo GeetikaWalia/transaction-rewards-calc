@@ -18,6 +18,7 @@ import static com.transactions.rewards.utils.TestData.transaction;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 class TransactionServiceTest {
@@ -39,20 +40,20 @@ class TransactionServiceTest {
         Customer customerOne = customer("Customer One", "customerone@test.com");
         Customer customerTwo = customer("Customer Two", "customertwo@test.com");
 
+        LocalDate date = LocalDate.now();
         List<Transaction> transactions = List.of(
-                transaction(customerOne, LocalDate.of(2024, 1, 15), 120),
-                transaction(customerOne, LocalDate.of(2024, 2, 10), 85),
-                transaction(customerOne, LocalDate.of(2024, 3, 5), 75),
-                transaction(customerTwo, LocalDate.of(2024, 1, 18), 95),
-                transaction(customerTwo, LocalDate.of(2024, 3, 25), 200)
+                transaction(customerOne, date.minusMonths(1), 120),
+                transaction(customerOne, date.minusMonths(2), 85),
+                transaction(customerTwo, date.minusMonths(1), 95),
+                transaction(customerTwo, date.minusMonths(2), 200)
         );
 
-        when(transactionRepository.findAll()).thenReturn(transactions);
+        when(transactionRepository.findByDateBetweenOrderByDateDesc(any(), any())).thenReturn(transactions);
 
-        List<Transaction> result = transactionService.findAllTransactions();
+        List<Transaction> result = transactionService.findAllTransactionsForLast3Months();
 
         assertNotNull(result);
-        assertEquals(5, result.size());
+        assertEquals(4, result.size());
         assertEquals(transactions, result);
     }
 
@@ -61,7 +62,7 @@ class TransactionServiceTest {
     void findAllTransactionsShouldReturnEmptyList() {
         when(transactionRepository.findAll()).thenReturn(List.of());
 
-        List<Transaction> result = transactionService.findAllTransactions();
+        List<Transaction> result = transactionService.findAllTransactionsForLast3Months();
 
         assertNotNull(result);
         assertTrue(result.isEmpty());

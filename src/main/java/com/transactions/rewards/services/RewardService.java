@@ -29,7 +29,7 @@ public class RewardService {
     private final CustomerService customerService;
 
     public List<TransactionRewardResponse> calculateRewards() {
-        List<Transaction> transactions = transactionService.findAllTransactions();
+        List<Transaction> transactions = transactionService.findAllTransactionsForLast3Months();
 
         if (CollectionUtils.isEmpty(transactions)) {
             log.info("No transactions found");

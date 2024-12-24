@@ -17,6 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.Arrays;
 import java.util.List;
 
@@ -52,27 +53,25 @@ class RewardControllerTest {
         // Clean database
         transactionRepository.deleteAll();
         customerRepository.deleteAll();
-        setUpData();
-    }
-
-    private void setUpData() {
-        Customer customerOne = customerRepository.save(customer("Customer One", "customerone@test.com"));
-        Customer customerTwo = customerRepository.save(customer("Customer Two", "customertwo@test.com"));
-        List<Transaction> transactions = List.of(
-                transaction(customerOne, LocalDate.of(2024, 1, 15), 120),
-                transaction(customerOne, LocalDate.of(2024, 2, 10), 85),
-                transaction(customerOne, LocalDate.of(2024, 3, 5), 75),
-                transaction(customerTwo, LocalDate.of(2024, 1, 18), 95),
-                transaction(customerTwo, LocalDate.of(2024, 3, 25), 200)
-        );
-        transactionRepository.saveAll(transactions);
     }
 
     @Test
     @SneakyThrows
     @DisplayName("getRewards should return reward details from database")
     void getRewardsShouldReturnRewardDetailsFromDatabase() {
-        var expectedResponse = rewardsResponse();
+        LocalDate date = LocalDate.now();
+        Customer customerOne = customerRepository.save(customer("Customer One", "customerone@test.com"));
+        Customer customerTwo = customerRepository.save(customer("Customer Two", "customertwo@test.com"));
+        List<Transaction> transactions = List.of(
+                transaction(customerOne, date.minusMonths(1), 120),
+                transaction(customerOne, date.minusMonths(2), 85),
+                transaction(customerOne, date.minusMonths(3), 75),
+                transaction(customerTwo, date.minusMonths(1), 95),
+                transaction(customerTwo, date.minusMonths(2), 200)
+        );
+        transactionRepository.saveAll(transactions);
+
+        var expectedResponse = rewardsResponse(customerOne, customerTwo);
 
         String contentAsString = mockMvc.perform(get("/api/rewards")
                         .contentType(MediaType.APPLICATION_JSON))

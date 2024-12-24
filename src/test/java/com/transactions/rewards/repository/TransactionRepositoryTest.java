@@ -3,6 +3,7 @@ package com.transactions.rewards.repository;
 import com.transactions.rewards.model.entity.Customer;
 import com.transactions.rewards.model.entity.Transaction;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,11 @@ class TransactionRepositoryTest {
 
     @Autowired
     private TransactionRepository transactionRepository;
+
+    @BeforeEach
+    public void setUp() {
+        transactionRepository.deleteAll();
+    }
 
     @Test
     @DisplayName("findAll should work fine")

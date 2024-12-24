@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -15,7 +16,9 @@ public class TransactionService {
 
     private final TransactionRepository transactionRepository;
 
-    public List<Transaction> findAllTransactions() {
-        return transactionRepository.findAll();
+    public List<Transaction> findAllTransactionsForLast3Months() {
+        LocalDate end = LocalDate.now();
+        LocalDate start = end.minusMonths(3);
+        return transactionRepository.findByDateBetweenOrderByDateDesc(start, end);
     }
 }
